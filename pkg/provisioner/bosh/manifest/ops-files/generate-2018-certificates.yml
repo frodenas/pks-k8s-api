@@ -1,0 +1,117 @@
+---
+# Add new four year certs starting in 2018
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-kubelet-2018
+    options:
+      common_name: kubelet.cfcr.internal
+      alternative_names: []
+      "ca": kubo_ca_2018
+      "organization": system:nodes
+      duration: &four_years 1461
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-kubelet-client-2018
+    options:
+      ca: kubo_ca_2018
+      common_name: kube-apiserver.cfcr.internal
+      extended_key_usage:
+        - client_auth
+      organization: system:masters
+      duration: *four_years
+    type: certificate
+
+# tls-kubernetes-2018 created in generate-2018-cas.yml
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-etcd-2018-2
+    options:
+      ca: etcd_ca_2018
+      common_name: '*.etcd.cfcr.internal'
+      extended_key_usage:
+        - client_auth
+        - server_auth
+      duration: *four_years
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-etcdctl-2018-2
+    options:
+      ca: etcd_ca_2018
+      common_name: etcdClient
+      extended_key_usage:
+        - client_auth
+      duration: *four_years
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-metrics-server-2018
+    options:
+      ca: kubo_ca_2018
+      common_name: metrics-server
+      alternative_names:
+        - metrics-server.kube-system.svc
+      duration: *four_years
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-heapster-2018
+    options:
+      ca: kubo_ca_2018
+      common_name: heapster
+      alternative_names:
+         - heapster.kube-system.svc.cluster.local
+      duration: *four_years
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-influxdb-2018
+    options:
+      ca: kubo_ca_2018
+      common_name: monitoring-influxdb
+      alternative_names: []
+      duration: *four_years
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-kubernetes-dashboard-2018
+    options:
+      ca: kubernetes-dashboard-ca-2018
+      common_name: kubernetesdashboard.cfcr.internal
+      alternative_names: []
+      duration: *four_years
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-kube-controller-manager-2018
+    options:
+      alternative_names:
+      - localhost
+      - 127.0.0.1
+      ca: kubo_ca_2018
+      common_name: kube-controller-manager
+      extended_key_usage:
+      - server_auth
+      key_usage:
+      - digital_signature
+      - key_encipherment
+      duration: *four_years
+    type: certificate

@@ -1,0 +1,5 @@
+# NOTE: This is required for the default kubernetes service which always runs on first IP address of the service CIDR
+# this need to be loaded when we are changing cidr of the cluster
+- type: replace
+  path: /variables/name=tls-kubernetes-2018/options/alternative_names/0
+  value: ((first_ip_of_service_cluster_cidr))

@@ -1,0 +1,9 @@
+- type: replace
+  path: /instance_groups/name=master/jobs/-
+  value:
+    name: pks-master-aliases
+    release: pks-helpers
+    consumes:
+      pks_api_shared:
+        from: pks_api_shared_http
+        deployment: ((pks_api_deployment))

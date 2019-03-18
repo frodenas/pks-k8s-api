@@ -1,0 +1,15 @@
+- type: replace
+  path: /instance_groups/name=route-sync/jobs/-
+  value:
+    name: syslog_forwarder
+    release: syslog
+    properties:
+      syslog:
+        address: ((syslog_address))
+        port: ((syslog_port))
+        transport: ((syslog_transport))
+        tls_enabled: ((syslog_tls_enabled))
+        permitted_peer: ((syslog_permitted_peer))
+        ca_cert: ((syslog_ca_cert))
+        migration:
+          disabled: ((syslog_disabled))

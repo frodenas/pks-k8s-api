@@ -1,0 +1,72 @@
+apiVersion: pks.vcna.io/v1alpha1
+kind: VSpherePlan
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: vsphereplan-sample
+spec:
+  description: "This is a sample vSphere Plan"
+  provider:
+    credentialsSecretRef:
+      name: "vsphere-credentials"
+      namespace: "default"
+    insecure: true
+  compute:
+    masters:
+      replicas: 1
+      numCpus: 2
+      memoryMb: 2048
+      vmFolder: "pcf_vms"
+      zones:
+        - name: az-1
+          datacenter: kubo-dc
+          cluster: kubo-az-1
+        - name: az-2
+          datacenter: kubo-dc
+          cluster: kubo-az-2
+        - name: az-3
+          datacenter: kubo-dc
+          cluster: kubo-az-3
+    workers:
+      replicas: 3
+      numCpus: 2
+      memoryMb: 2048
+      vmFolder: "pcf_vms"
+      zones:
+        - name: az-1
+          datacenter: kubo-dc
+          cluster: kubo-az-1
+        - name: az-2
+          datacenter: kubo-dc
+          cluster: kubo-az-2
+        - name: az-3
+          datacenter: kubo-dc
+          cluster: kubo-az-3
+  network:
+    dns:
+      - "8.8.8.8"
+    nsxt:
+      credentialsSecretRef:
+        name: "nsxt-credentials"
+        namespace: "default"
+      insecure: true
+      t0RouterId: "b7e65f19-a464-4cb5-958b-6ad62b9af300"
+      ipBlockIds:
+        - "f58e0199-45ef-471c-b847-a7f747be9a50"      
+      floatingIPPoolIds:
+        - "ebd4ff05-5d76-4070-83e9-cd3dfd5c43f1"
+      natMode: true
+      lbSize: SMALL
+      podSubnetPrefix: 24
+      dns:
+        - "8.8.8.8"
+  storage:
+    masters:
+      datastore: "iscsi-ds-0"
+      disks:
+        - sizeGb: 20
+    workers:
+      datastore: "iscsi-ds-0"
+      disks:
+        - sizeGb: 100
+  

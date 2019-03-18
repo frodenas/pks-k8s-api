@@ -1,0 +1,42 @@
+apiVersion: pks.vcna.io/v1alpha1
+kind: AWSPlan
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: awsplan-sample
+spec: 
+  description: "This is a sample AWS Plan"
+  provider:
+    credentialsSecretRef:
+      name: "aws-credentials"
+      namespace: "default"
+    region: "us-east-2"
+  compute:
+    masters:
+      replicas: 1
+      numCpus: 2
+      memoryMb: 2048
+      zones:
+        - "us-east-2a"
+        - "us-east-2b"
+        - "us-east-2c"
+    workers:
+      replicas: 3
+      numCpus: 2
+      memoryMb: 2048
+      zones:
+        - "us-east-2a"
+        - "us-east-2b"
+        - "us-east-2c"
+  network:
+    vpcId: "vpc-69b67800"
+    dns:
+      - "8.8.8.8"
+  storage:
+    masters:
+      disks:
+        - sizeGb: 20
+    workers:
+      disks:
+        - sizeGb: 100
+  

@@ -1,0 +1,11 @@
+- type: replace
+  path: /instance_groups/name=master/jobs/name=cloud-provider/properties/cloud-config/Global?/password?
+  value: ((/opsmgr/((pks_api_deployment))/cloud_provider/vsphere/vcenter_master_creds.password))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=cloud-provider/properties/cloud-config/Global?/user?
+  value: ((/opsmgr/((pks_api_deployment))/cloud_provider/vsphere/vcenter_master_creds.identity))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=cloud-provider/properties/cloud-config/Global?/insecure-flag?
+  value: "1"

@@ -1,0 +1,15 @@
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=cloud-provider/properties/cloud-config/Global?/node-tags?
+  value: ((deployment_name_tag_safe))-worker
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=cloud-provider/properties/cloud-config/Global?/node-tags?
+  value: ((deployment_name_tag_safe))-worker
+
+- type: replace
+  path: /instance_groups/name=master/vm_extensions?/-
+  value: service_account_master
+
+- type: replace
+  path: /instance_groups/name=worker/vm_extensions?/-
+  value: service_account_worker

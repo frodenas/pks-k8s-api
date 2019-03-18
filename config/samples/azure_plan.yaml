@@ -1,0 +1,37 @@
+apiVersion: pks.vcna.io/v1alpha1
+kind: AzurePlan
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: azureplan-sample
+spec: 
+  description: "This is a sample Azure Plan"
+  provider:
+    credentialsSecretRef:
+      name: "azure-credentials"
+      namespace: "default"
+    environment: "AzurePublicCloud"
+    location: "Central US"
+    resourceGroup: "pks-k8s-api"
+  compute:
+    masters:
+      replicas: 1
+      numCpus: 2
+      memoryMb: 2048
+    workers:
+      replicas: 3
+      numCpus: 2
+      memoryMb: 2048
+  network:
+    vnet: "pks-network"
+    subnet: "pks-subnet"
+    dns:
+      - "8.8.8.8"
+  storage:
+    masters:
+      disks:
+        - sizeGb: 20
+    workers:
+      disks:
+        - sizeGb: 100
+  

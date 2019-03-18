@@ -1,0 +1,51 @@
+---
+# New certificate authorities
+- type: replace
+  path: /variables/-
+  value:
+    name: kubo_ca_2018
+    options:
+      common_name: ca
+      is_ca: true
+      duration: &four_years 1461
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: kubernetes-dashboard-ca-2018
+    options:
+      common_name: ca
+      is_ca: true
+      duration: *four_years
+    type: certificate
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls-kubernetes-2018
+    type: certificate
+    options:
+      alternative_names:
+      - 10.100.200.1
+      - kubernetes
+      - kubernetes.default
+      - kubernetes.default.svc
+      - kubernetes.default.svc.cluster.local
+      - master.cfcr.internal
+      - external
+      - ((kubernetes_master_host))
+      ca: to_be_replaced_with_path_to_kubo_odb_ca_2018
+      common_name: ((kubernetes_master_host))
+      organization: system:masters
+      duration: *four_years
+
+- type: replace
+  path: /variables/-
+  value:
+    name: etcd_ca_2018
+    type: certificate
+    options:
+      common_name: etcd.ca
+      is_ca: true
+      duration: *four_years

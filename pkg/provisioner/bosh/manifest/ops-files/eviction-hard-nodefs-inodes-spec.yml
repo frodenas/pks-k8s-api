@@ -1,0 +1,4 @@
+---
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kubelet/properties/kubelet-configuration/evictionHard?/nodefs.inodesFree?
+  value: ((eviction_hard_nodefs_inodesFree))

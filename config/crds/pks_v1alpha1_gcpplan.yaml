@@ -1,0 +1,250 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: gcpplans.pks.vcna.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.description
+    name: Description
+    type: string
+  group: pks.vcna.io
+  names:
+    kind: GCPPlan
+    plural: gcpplans
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            compute:
+              description: ComputeSpec is a GCP Compute specification.
+              properties:
+                masters:
+                  description: MastersSpec is the GCP Compute Masters specification.
+                  properties:
+                    memoryMb:
+                      description: MemoryMB is the amount of memory in Mb to be assigned
+                        to each master VM.
+                      format: int64
+                      minimum: 2
+                      type: integer
+                    numCpus:
+                      description: NumCPUs is the number of CPUs to be assigned to
+                        each master VM.
+                      format: int32
+                      minimum: 1
+                      type: integer
+                    replicas:
+                      description: Replicas is the number of master VMs.
+                      format: int32
+                      minimum: 1
+                      type: integer
+                    zones:
+                      description: Zones are the zones where master VMs will be located.
+                      items:
+                        type: string
+                      minItems: 1
+                      type: array
+                  required:
+                  - replicas
+                  - numCpus
+                  - memoryMb
+                  - zones
+                  type: object
+                workers:
+                  description: WorkersSpec is the GCP Compute Workers specification.
+                  properties:
+                    memoryMb:
+                      description: MemoryMB is the amount of memory in Mb to be assigned
+                        to each worker VM.
+                      format: int64
+                      minimum: 2
+                      type: integer
+                    numCpus:
+                      description: NumCPUs is the number of CPUs to be assigned to
+                        each worker VM.
+                      format: int32
+                      minimum: 1
+                      type: integer
+                    replicas:
+                      description: Replicas is the number of worker VMs.
+                      format: int32
+                      minimum: 0
+                      type: integer
+                    zones:
+                      description: Zones are the zones where worker VMs will be located.
+                      items:
+                        type: string
+                      minItems: 1
+                      type: array
+                  required:
+                  - replicas
+                  - numCpus
+                  - memoryMb
+                  - zones
+                  type: object
+              required:
+              - masters
+              - workers
+              type: object
+            description:
+              description: Description is the description of the GCP Plan.
+              type: string
+            network:
+              description: NetworkSpec is a GCP Network specification.
+              properties:
+                dns:
+                  description: DNS is a list of Domain Name Servers.
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+                name:
+                  description: Name is the name of the network to associate with the
+                    VMs.
+                  type: string
+              required:
+              - name
+              type: object
+            provider:
+              description: ProviderSpec is the GCP Provider specification.
+              properties:
+                credentialsSecretRef:
+                  description: Secret containing vSphere credentials.
+                  type: object
+                region:
+                  description: Region is the GCP region name.
+                  type: string
+              required:
+              - credentialsSecretRef
+              - region
+              type: object
+            storage:
+              description: StorageSpec is a GCP Storage specification.
+              properties:
+                masters:
+                  description: MastersSpec is the GCP Storage Masters specification.
+                  properties:
+                    disks:
+                      description: Disks are the disks to be attached to the master
+                        VMs.
+                      items:
+                        properties:
+                          sizeGb:
+                            description: SizeGb is the size in Gb of the disk.
+                            format: int64
+                            minimum: 1
+                            type: integer
+                          type:
+                            description: Tye is the type of the Disk.
+                            type: string
+                        required:
+                        - sizeGb
+                        type: object
+                      minItems: 1
+                      type: array
+                  required:
+                  - disks
+                  type: object
+                workers:
+                  description: WorkersSpec is the GCP Storage Workers specification.
+                  properties:
+                    disks:
+                      description: Disks are the disks to be attached to the worker
+                        VMs.
+                      items:
+                        properties:
+                          sizeGb:
+                            description: SizeGb is the size in Gb of the disk.
+                            format: int64
+                            minimum: 1
+                            type: integer
+                          type:
+                            description: Tye is the type of the Disk.
+                            type: string
+                        required:
+                        - sizeGb
+                        type: object
+                      minItems: 1
+                      type: array
+                  required:
+                  - disks
+                  type: object
+              required:
+              - masters
+              - workers
+              type: object
+          required:
+          - provider
+          - compute
+          - network
+          - storage
+          type: object
+        status:
+          properties:
+            conditions:
+              description: Represents the latest available observations of a GCP Plan
+                current state.
+              items:
+                properties:
+                  lastTransitionTime:
+                    description: Last time the condition transitioned from one status
+                      to another.
+                    format: date-time
+                    type: string
+                  lastUpdateTime:
+                    description: The last time this condition was updated.
+                    format: date-time
+                    type: string
+                  message:
+                    description: A human readable message indicating details about
+                      the transition.
+                    type: string
+                  reason:
+                    description: The reason for the condition's last transition.
+                    type: string
+                  status:
+                    description: Status of the condition, one of True, False, Unknown.
+                    type: string
+                  type:
+                    description: Type of GCP Plan condition.
+                    type: string
+                required:
+                - type
+                - status
+                - lastUpdateTime
+                - lastTransitionTime
+                - reason
+                - message
+                type: object
+              type: array
+            observedGeneration:
+              description: The generation observed by the GCP Plan controller.
+              format: int64
+              type: integer
+          type: object
+  version: v1alpha1
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

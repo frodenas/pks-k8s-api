@@ -1,0 +1,21 @@
+apiVersion: pks.vcna.io/v1alpha1
+kind: Cluster
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: "odb-cluster-sample"
+spec:
+  description: "This is a sample On-Demand-Broker Cluster"
+  externalHostname: "odb-cluster-sample.example.com"
+  provisioner:
+    type: "ODB"
+    credentialsSecretRef:
+      name: "odb-credentials"
+      namespace: "default"
+  planRef:
+    kind: "ODBPlan"
+    name: "odbplan-sample"
+    namespace: "default"
+  kubernetesProfileRef:
+    name: "kubernetesprofile-sample"
+    namespace: "default"

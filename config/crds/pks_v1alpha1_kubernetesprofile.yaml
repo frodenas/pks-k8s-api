@@ -1,0 +1,129 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: kubernetesprofiles.pks.vcna.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.description
+    name: Description
+    type: string
+  group: pks.vcna.io
+  names:
+    kind: KubernetesProfile
+    plural: kubernetesprofiles
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            description:
+              description: Description is the description of the plant.
+              type: string
+            network:
+              description: NetworkSpec
+              properties:
+                podsCIDRBlocks:
+                  description: The network ranges from which Pod networks are allocated.
+                  items:
+                    type: string
+                  type: array
+                serviceDomain:
+                  description: Domain name for services.
+                  type: string
+                servicesCIDRBlocks:
+                  description: The network ranges from which service VIPs are allocated.
+                  items:
+                    type: string
+                  minItems: 1
+                  type: array
+              required:
+              - serviceDomain
+              - servicesCIDRBlocks
+              type: object
+            versions:
+              description: Versions is the Kubernetes Versions specification.
+              properties:
+                master:
+                  description: Master is the semantic version of the Kubernetes control
+                    plane to run.
+                  type: string
+                worker:
+                  description: Worker is the semantic version of Kubernetes kubelet
+                    to run.
+                  type: string
+              required:
+              - master
+              - worker
+              type: object
+          required:
+          - versions
+          - network
+          type: object
+        status:
+          properties:
+            conditions:
+              description: Represents the latest available observations of a Kubernetes
+                Profile current state.
+              items:
+                properties:
+                  lastTransitionTime:
+                    description: Last time the condition transitioned from one status
+                      to another.
+                    format: date-time
+                    type: string
+                  lastUpdateTime:
+                    description: The last time this condition was updated.
+                    format: date-time
+                    type: string
+                  message:
+                    description: A human readable message indicating details about
+                      the transition.
+                    type: string
+                  reason:
+                    description: The reason for the condition's last transition.
+                    type: string
+                  status:
+                    description: Status of the condition, one of True, False, Unknown.
+                    type: string
+                  type:
+                    description: Type of Kubernetes Profile condition.
+                    type: string
+                required:
+                - type
+                - status
+                - lastUpdateTime
+                - lastTransitionTime
+                - reason
+                - message
+                type: object
+              type: array
+            observedGeneration:
+              description: The generation observed by the Kubernetes Profile controller.
+              format: int64
+              type: integer
+          type: object
+  version: v1alpha1
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

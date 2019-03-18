@@ -1,0 +1,3 @@
+version: "1"
+domain: vcna.io
+repo: github.com/frodenas/pks-k8s-api

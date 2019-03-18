@@ -1,0 +1,132 @@
+---
+# TLS trust lists for the apply-addons instance group
+# apply-specs job
+- type: replace
+  path: /instance_groups/name=apply-addons/jobs/name=apply-specs/properties/tls/heapster
+  value:
+    ca: ((kubo_ca.certificate))((kubo_ca_2018.certificate))
+    certificate: ((tls-heapster-2018.certificate))
+    private_key: ((tls-heapster-2018.private_key))
+
+- type: replace
+  path: /instance_groups/name=apply-addons/jobs/name=apply-specs/properties/tls/influxdb
+  value:
+    ca: ((kubo_ca.certificate))((kubo_ca_2018.certificate))
+    certificate: ((tls-influxdb-2018.certificate))
+    private_key: ((tls-influxdb-2018.private_key))
+
+- type: replace
+  path: /instance_groups/name=apply-addons/jobs/name=apply-specs/properties/tls/kubernetes-dashboard
+  value:
+    ca: ((kubernetes-dashboard-ca.certificate))((kubernetes-dashboard-ca-2018.certificate))
+    certificate: ((tls-kubernetes-dashboard-2018.certificate))
+    private_key: ((tls-kubernetes-dashboard-2018.private_key))
+
+- type: replace
+  path: /instance_groups/name=apply-addons/jobs/name=apply-specs/properties/tls/metrics-server
+  value:
+    ca: ((kubo_ca.certificate))((kubo_ca_2018.certificate))
+    certificate: ((tls-metrics-server-2018.certificate))
+    private_key: ((tls-metrics-server-2018.private_key))
+
+- type: replace
+  path: /instance_groups/name=apply-addons/jobs/name=apply-specs/properties/tls/kubernetes
+  value:
+    ca: ((tls-kubernetes.ca))((tls-kubernetes-2018.ca))
+    certificate: ((tls-kubernetes-2018.certificate))
+    private_key: ((tls-kubernetes-2018.private_key))
+
+# TLS trust lists for the master instance group
+# kube-apiserver job
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kube-apiserver/properties/tls/kubelet-client
+  value:
+    ca: ((kubo_ca.certificate))((kubo_ca_2018.certificate))
+    certificate: ((tls-kubelet-client-2018.certificate))
+    private_key: ((tls-kubelet-client-2018.private_key))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kube-apiserver/properties/tls/kubernetes
+  value:
+    ca: ((tls-kubernetes.ca))((tls-kubernetes-2018.ca))((kubo_ca.certificate))((kubo_ca_2018.certificate))
+    certificate: ((tls-kubernetes-2018.certificate))((tls-kubernetes-2018.ca))
+    private_key: ((tls-kubernetes-2018.private_key))
+
+# kube-controller-manager job
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kube-controller-manager/properties/tls/kubernetes
+  value:
+    ca: ((tls-kubernetes.ca))((tls-kubernetes-2018.ca))
+    certificate: ((tls-kube-controller-manager-2018.certificate))
+    private_key: ((tls-kube-controller-manager-2018.private_key))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kube-controller-manager/properties/cluster-signing
+  value: ((kubo_ca_2018))
+
+# kube-scheduler job
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kube-scheduler/properties/tls/kubernetes
+  value:
+    ca: ((tls-kubernetes.ca))((tls-kubernetes-2018.ca))
+    certificate: ((tls-kubernetes-2018.certificate))
+    private_key: ((tls-kubernetes-2018.private_key))
+
+# kubernetes-roles job
+- type: replace
+  path: /instance_groups/name=master/jobs/name=kubernetes-roles/properties/tls/kubernetes
+  value:
+    ca: ((tls-kubernetes.ca))((tls-kubernetes-2018.ca))
+    certificate: ((tls-kubernetes-2018.certificate))
+    private_key: ((tls-kubernetes-2018.private_key))
+
+# etcd job
+- type: replace
+  path: /instance_groups/name=master/jobs/name=etcd/properties/tls/etcd
+  value:
+    ca: ((etcd_ca_2018.certificate))
+    certificate: ((tls-etcd-2018-2.certificate))
+    private_key: ((tls-etcd-2018-2.private_key))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=etcd/properties/tls/etcdctl
+  value:
+    ca: ((etcd_ca_2018.certificate))
+    certificate: ((tls-etcdctl-2018-2.certificate))
+    private_key: ((tls-etcdctl-2018-2.private_key))
+
+- type: replace
+  path: /instance_groups/name=master/jobs/name=etcd/properties/tls/peer
+  value:
+    ca: ((etcd_ca_2018.certificate))
+    certificate: ((tls-etcd-2018-2.certificate))
+    private_key: ((tls-etcd-2018-2.private_key))
+
+# TLS trust lists for the worker instance group
+# kubelet job
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kubelet/properties/tls/kubelet
+  value:
+    ca: ((kubo_ca.certificate))((kubo_ca_2018.certificate))
+    certificate: ((tls-kubelet-2018.certificate))
+    private_key: ((tls-kubelet-2018.private_key))
+
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kubelet/properties/tls/kubernetes
+  value:
+    ca: ((tls-kubernetes.ca))((tls-kubernetes-2018.ca))
+    certificate: ((tls-kubernetes-2018.certificate))
+    private_key: ((tls-kubernetes-2018.private_key))
+
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kubelet/properties/tls/kubelet-client-ca
+  value:
+    certificate: ((kubo_ca.certificate))((kubo_ca_2018.certificate))
+
+# kube-proxy job
+- type: replace
+  path: /instance_groups/name=worker/jobs/name=kube-proxy/properties/tls/kubernetes
+  value:
+    ca: ((tls-kubernetes.ca))((tls-kubernetes-2018.ca))
+    certificate: ((tls-kubernetes-2018.certificate))
+    private_key: ((tls-kubernetes-2018.private_key))

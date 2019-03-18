@@ -1,0 +1,44 @@
+apiVersion: pks.vcna.io/v1alpha1
+kind: GCPPlan
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: gcpplan-sample
+spec:
+  description: "This is a sample GCP Plan"
+  provider:
+    credentialsSecretRef:
+      name: "gcp-credentials"
+      namespace: "default"
+    region: "us-west1"
+  compute:
+    masters:
+      replicas: 1
+      numCpus: 2
+      memoryMb: 2048
+      zones:
+        - "us-west1-a"
+        - "us-west1-b"
+        - "us-west1-c"
+    workers:
+      replicas: 3
+      numCpus: 2
+      memoryMb: 2048
+      zones:
+        - "us-west1-a"
+        - "us-west1-b"
+        - "us-west1-c"
+  network:
+    name: "default"
+    dns:
+      - "8.8.8.8"
+  storage:
+    masters:
+      disks:
+        - sizeGb: 20
+          type: "pd-standard"
+    workers:
+      disks:
+        - sizeGb: 100
+          type: "pd-standard"
+  

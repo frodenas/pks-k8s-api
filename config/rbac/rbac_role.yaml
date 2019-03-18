@@ -1,0 +1,467 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: manager-role
+rules:
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - awsplans
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - awsplans/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - azureplans
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - azureplans/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - awsplans
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - awsplans/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - azureplans
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - azureplans/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - gcpplans
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - gcpplans/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - vsphereplans
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - vsphereplans/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - odbplans
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - odbplans/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - kubernetesprofiles
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - kubernetesprofiles/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - vsphereplans
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - vsphereplans/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - gcpplans
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - gcpplans/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - kubernetesprofiles
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - kubernetesprofiles/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - odbplans
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - odbplans/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - vsphereplans
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - vsphereplans/status
+  verbs:
+  - get
+  - update
+  - patch
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters
+  verbs:
+  - get
+  - list
+  - watch
+  - ""
+- apiGroups:
+  - pks.vcna.io
+  resources:
+  - clusters/status
+  verbs:
+  - get
+  - ""
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete

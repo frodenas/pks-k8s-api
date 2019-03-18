@@ -1,0 +1,10 @@
+apiVersion: pks.vcna.io/v1alpha1
+kind: ODBPlan
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: odbplan-sample
+spec: 
+  description: "This is a sample ODB Plan"
+  serviceId: "DF8EECC4-7225-42D0-8459-4A6C584314CA"
+  planId: "8A0E21A8-8072-4D80-B365-D1F502085560"

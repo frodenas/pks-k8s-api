@@ -1,0 +1,9 @@
+- type: replace
+  path: /instance_groups/name=worker/update?
+  value:
+    canaries: 1
+    max_in_flight: ((worker_max_in_flight))
+    canary_watch_time: 10000-300000
+    update_watch_time: 10000-300000
+    serial: true
+
